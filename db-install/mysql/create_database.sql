@@ -1498,7 +1498,7 @@ insert into system_users (userid, username, userpassword, email_address,first_na
 values (1, 'admin', 'F/KbuDOEofgjp7/9yUGnrw==', 'change@this.address','','');
 
 -- Event info
-insert into event_info (name,description) values ('AsyncWait','description=Processo fica bloqueado num bloco NOP ''a espera de de um evento externo');
+insert into event_info (name,description) values ('AsyncWait','description=Processo fica bloqueado num bloco NOP a espera de de um evento externo');
 insert into event_info (name,description) values ('Timer','description=Timer para reencaminhar para ...;workingdays=true;minutes=10');
 insert into event_info (name,description) values ('Deadline', 'dateVar=date');
 
