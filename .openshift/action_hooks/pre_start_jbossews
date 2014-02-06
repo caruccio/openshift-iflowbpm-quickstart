@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Get standard environment variables
+set -x
+
+export CATALINA_OPTS+=" -Diflow.home=${OPENSHIFT_REPO_DIR}/iflow-home"
+export CATALINA_OPTS+=" -Diflow.log_dir=${OPENSHIFT_JBOSSEWS_LOG_DIR}"
+
+# Check for database
+if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
+then
+   echo 1>&2
+   echo "Could not find mysql database.  Please run:" 1>&2
+   echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.1" 1>&2
+   echo "then make a sample commit (add whitespace somewhere) and re-push" 1>&2
+   echo 1>&2
+   exit 5
+fi
+
+# Confirm database exists, if not create it
+if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" -e "select COUNT(*) from flow;" "$OPENSHIFT_APP_NAME" > /dev/null 2>&1
+then
+   /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -P "$OPENSHIFT_MYSQL_DB_PORT" "$OPENSHIFT_APP_NAME" < $OPENSHIFT_REPO_DIR/db-install/mysql/create_database.sql 1>&2
+   echo "Database configured."
+fi
