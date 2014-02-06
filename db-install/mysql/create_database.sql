@@ -1907,4 +1907,4 @@ CREATE TABLE `serial_code_templates` (
   PRIMARY KEY (`template`, `name`, `organization`)
 );
 
-ALTER TABLE `iflow`.`reporting` ADD INDEX `IDX_REPORTING`(`flowid`, `pid`, `subpid`);
+ALTER TABLE `reporting` ADD INDEX `IDX_REPORTING`(`flowid`, `pid`, `subpid`);
