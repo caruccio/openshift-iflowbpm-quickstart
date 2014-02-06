@@ -1,6 +1,6 @@
 -- store current charset and set it to UTF-8
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+-- SET @saved_cs_client     = @@character_set_client;
+-- SET character_set_client = utf8;
 
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -1505,7 +1505,7 @@ insert into event_info (name,description) values ('Deadline', 'dateVar=date');
 commit;
 
 -- restore previous charset
-SET character_set_client = @saved_cs_client;
+-- SET character_set_client = @saved_cs_client;
 
 -- -------------------
 --    START QRTZ    --
